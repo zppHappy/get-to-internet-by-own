@@ -73,10 +73,35 @@ python3 filter.py -c config.yaml
 
 ---
 
+## 上万节点怎么调（3 万+ 订阅）
+
+真连接测试的成本大头是**每个节点冷启动一个内核**，不是测速。3 万节点按默认参数要跑 2 小时以上，
+Actions 会直接超时。按重要性排序做三件事：
+
+1. **开 TCP 预筛**（默认开）。先用 1~2 秒探一次端口，连不上的节点直接判死，不再为它们起内核。
+   实测能砍掉大部分耗时，而且不会误杀——TCP 都连不上，代理一定不可用。
+   只对 vmess / vless / trojan / ss 生效；hysteria2、tuic 走 UDP，自动跳过预筛。
+2. **并发拉高**：`concurrency: 32`（CI 的 2 核机器）到 `48`（本地 8 核）。再高会因 CPU 抢占导致延迟虚高。
+3. **关测速**：`speed_test: false`。测速只影响排序，不影响「能不能用」，节点多时开销极大。
+
+对应配置项：
+
+| 配置 | 默认 | 说明 |
+|---|---|---|
+| `tcp_precheck` | true | 是否启用预筛 |
+| `precheck_timeout` | 2.0 | 单次探活超时（秒） |
+| `precheck_concurrency` | 200 | 探活并发，可到 500 |
+
+预筛只剔除「确定死的」，活下来的节点仍然要过真连接测试。怀疑某个节点被误杀时，
+加 `--no-precheck` 跑一遍对比。
+
+---
+
 ## 常用参数
 
 ```bash
 python3 filter.py -c config.yaml --no-speed          # 只测延迟，快 3 倍
+python3 filter.py -c config.yaml --no-precheck       # 关掉 TCP 预筛，全部节点都真连一遍
 python3 filter.py -c config.yaml --limit 30         # 只留最快的 30 个
 python3 filter.py -c config.yaml --proto vless      # 只测 vless
 python3 filter.py -c config.yaml --max-delay 800    # 延迟超过 800ms 的不要

@@ -24,7 +24,8 @@ concurrency:
 jobs:
   filter:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    # 上万节点时一次完整筛选可能超过 40 分钟，这里放宽（公开仓库不计费）
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
 
@@ -40,6 +41,16 @@ jobs:
         run: |
           chmod +x install_core.sh
           ./install_core.sh
+
+      - name: 检查订阅源
+        env:
+          V2SUB_SOURCES: ${{ secrets.SUBS }}
+        run: |
+          if [ -z "$V2SUB_SOURCES" ]; then
+            echo "::error::Secret SUBS 未配置。到 Settings → Secrets and variables → Actions → Repository secrets 添加，名称必须是 SUBS"
+            exit 1
+          fi
+          echo "已读取订阅源，行数：$(printf '%s\n' "$V2SUB_SOURCES" | grep -c .)"
 
       - name: 筛选订阅
         env:

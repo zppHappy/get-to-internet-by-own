@@ -1,32 +1,45 @@
 # v2sub 运行配置（不含任何隐私信息，可以放心提交到仓库）
-# 订阅链接请写进 sources.txt 或环境变量 V2SUB_SOURCES
+# 订阅链接请写进 sources.txt 或环境变量 V2SUB_SOURCES（Actions 里是 Secret SUBS）
 
-sources:
-  # 公开订阅可以直接写在这里（会随仓库一起提交，别把私有机场链接写进来）
-  # raw 在国内经常直连不通，所以同时挂一个 jsDelivr 镜像，脚本内部会去重
-  - https://raw.githubusercontent.com/MatinGhanbari/v2ray-configs/main/subscriptions/v2ray/all_sub.txt
-  - https://cdn.jsdelivr.net/gh/MatinGhanbari/v2ray-configs@main/subscriptions/v2ray/all_sub.txt
+# 只测自己的订阅。公开订阅源已清空 —— 要临时加回来，取消下面两行注释即可。
+sources: []
+#  - https://raw.githubusercontent.com/MatinGhanbari/v2ray-configs/main/subscriptions/v2ray/all_sub.txt
+#  - https://cdn.jsdelivr.net/gh/MatinGhanbari/v2ray-configs@main/subscriptions/v2ray/all_sub.txt
 
 settings:
-  concurrency: 16
+  # 同时测几个节点。每个节点要起一个内核进程，CI 的 2 核机器 32 比较合适，
+  # 本地 8 核可以到 48~64；再高会因为 CPU 抢占导致延迟虚高。
+  concurrency: 32
   startup_timeout: 10.0
-  fetch_timeout: 20
+  fetch_timeout: 30
 
+  # ---- TCP 预筛（上万节点的关键优化）----
+  # 先用极低成本探一次端口，把连不上的节点直接判死，不为它们冷启动内核。
+  # 只对 vmess/vless/trojan/ss 生效；hysteria2、tuic 走 UDP，不参与预筛。
+  tcp_precheck: true
+  precheck_timeout: 2.0
+  precheck_concurrency: 200
+
+  # ---- 真连接测试（等价于 V2RayN 的「真连接延迟」）----
   delay_test_url: https://www.gstatic.com/generate_204
   delay_timeout: 5
   delay_retries: 1
   accept_any_status: true
   accept_status: [200, 204, 301, 302]
 
-  speed_test: false          # 只测真连接；想要速度数据改成 true
+  # ---- 测速 ----
+  # 关掉：3 万节点开测速要跑几小时，而且测速只影响排序，不影响「能不能用」。
+  # 想要速度数据再改 true（节点多时务必配合 max_nodes 限流）。
+  speed_test: false
   speed_test_url: https://cachefly.cachefly.net/10mb.test
   speed_timeout: 8
   speed_max_bytes: 0
 
+  # ---- 筛选条件 ----
   max_delay_ms: 5000         # 0 = 不限制延迟，只要是通的就留
   min_speed_mbps: 0.5
   require_speed: false
-  max_nodes: 0
+  max_nodes: 0               # >0 时只保留前 N 个（按延迟升序），可用来压缩订阅体积
   protocols: [vmess, vless, trojan, ss, hysteria2, tuic]
   dedupe: true
 

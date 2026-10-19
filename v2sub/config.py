@@ -12,6 +12,10 @@ DEFAULTS: Dict[str, Any] = {
         "concurrency": 8,
         "startup_timeout": 6.0,
         "fetch_timeout": 20,
+        # TCP 预筛：先剔掉端口都不通的节点，避免为它们冷启动内核（只对 TCP 系协议生效）
+        "tcp_precheck": True,
+        "precheck_timeout": 2.0,
+        "precheck_concurrency": 200,
         # 真连接测试（和 v2rayN 的「真连接延迟」一致：通过代理真的请求一次）
         "delay_test_url": "https://www.gstatic.com/generate_204",
         "delay_timeout": 5,

@@ -24,6 +24,7 @@ from v2sub.core import find_core  # noqa: E402
 from v2sub.emit import build_files, select_working, write_files  # noqa: E402
 from v2sub.fetch import fetch_all  # noqa: E402
 from v2sub.parse import parse_link  # noqa: E402
+from v2sub.precheck import precheck  # noqa: E402
 from v2sub.tester import test_nodes  # noqa: E402
 from v2sub.upload import UploadError, upload  # noqa: E402
 
@@ -34,6 +35,8 @@ RED = "\033[31m"
 YELLOW = "\033[33m"
 CYAN = "\033[36m"
 RESET = "\033[0m"
+
+MARKS = "①②③④⑤⑥⑦⑧⑨"
 
 
 def _color(s: str, c: str) -> str:
@@ -46,11 +49,22 @@ def log(msg: str = "") -> None:
     print(msg, flush=True)
 
 
+def step(title: str) -> None:
+    """带序号的阶段标题，序号随实际执行的步骤自动递增。"""
+    step.n += 1
+    mark = MARKS[step.n - 1] if step.n <= len(MARKS) else f"({step.n})"
+    log(_color(f"{mark} {title}", BOLD))
+
+
+step.n = 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="V2RayN 订阅自动筛选（真连接测试 + 测速）")
     ap.add_argument("-c", "--config", default="config.yaml", help="配置文件路径")
     ap.add_argument("--sub", action="append", default=[], help="临时追加订阅地址（可多次）")
     ap.add_argument("--no-speed", action="store_true", help="只测延迟，不测速")
+    ap.add_argument("--no-precheck", action="store_true", help="关闭 TCP 预筛（所有节点都做真连接测试）")
     ap.add_argument("--no-upload", action="store_true", help="只生成文件，不上传 GitHub")
     ap.add_argument("--dry-run", action="store_true", help="抓取+解析后只打印统计，不测试")
     ap.add_argument("--limit", type=int, default=0, help="最多保留多少个节点（覆盖配置）")
@@ -64,6 +78,8 @@ def main() -> int:
     st = cfg["settings"]
     if args.no_speed:
         st["speed_test"] = False
+    if args.no_precheck:
+        st["tcp_precheck"] = False
     if args.limit:
         st["max_nodes"] = args.limit
     if args.concurrency:
@@ -101,7 +117,7 @@ def main() -> int:
         log(_color("✗ 没有配置订阅源：写进 sources.txt、或用 V2SUB_SOURCES 环境变量、或 --sub 指定", RED))
         return 2
 
-    log(_color("① 抓取订阅", BOLD))
+    step("抓取订阅")
     t0 = time.time()
     raw_links, fetch_errors = fetch_all(sources, timeout=float(st.get("fetch_timeout", 20)), log=None if args.quiet else log)
     if not raw_links:
@@ -110,7 +126,7 @@ def main() -> int:
             log(f"  - {s}: {e}")
         return 2
 
-    log(_color(f"② 解析节点（共 {len(raw_links)} 条链接）", BOLD))
+    step(f"解析节点（共 {len(raw_links)} 条链接）")
     nodes, seen, skipped = [], set(), {"parse": 0, "proto": 0, "dup": 0}
     for link, src in raw_links:
         node = parse_link(link, src)
@@ -131,6 +147,7 @@ def main() -> int:
     for n in nodes:
         by_proto[n.proto] = by_proto.get(n.proto, 0) + 1
     log(f"  可测节点 {len(nodes)} 个 " + _color("(" + ", ".join(f"{k}:{v}" for k, v in sorted(by_proto.items())) + ")", DIM))
+    parsed_nodes = len(nodes)
     if any(skipped.values()):
         log(_color(f"  跳过：重复 {skipped['dup']}、协议未启用 {skipped['proto']}、无法解析 {skipped['parse']}", DIM))
 
@@ -141,6 +158,27 @@ def main() -> int:
         log(_color("--dry-run：跳过测试", YELLOW))
         return 0
 
+    # TCP 预筛：先把端口都连不上的节点剔掉，省掉为它们冷启动内核的开销。
+    # 只剔除「确定死的」，活下来的仍然要过真连接测试。
+    pre_dead = []
+    if st.get("tcp_precheck", True) and len(nodes) > 50:
+        step("TCP 预筛（只剔除端口不通的）")
+        t_pre = time.time()
+        alive, pre_dead, n_ep = precheck(
+            nodes,
+            timeout=float(st.get("precheck_timeout", 2)),
+            concurrency=int(st.get("precheck_concurrency", 200)),
+            log=None if args.quiet else log,
+        )
+        log(
+            f"  {n_ep} 个端点 → 可连 {len(alive)} / {len(nodes)} 个节点"
+            + _color(f"，剔除 {len(pre_dead)}（{time.time() - t_pre:.1f}s）", DIM)
+        )
+        nodes = alive
+        if not nodes:
+            log(_color("✗ 所有节点端口都不通：检查本机网络，或订阅里的地址已全部失效", RED))
+            return 1
+
     core_dir = st.get("core_dir") or None
     need = {n.core for n in nodes}
     missing = [c for c in sorted(need) if not find_core(c, core_dir)]
@@ -149,7 +187,7 @@ def main() -> int:
         log("  先执行：./install_core.sh   （或把内核放到 ./bin 下）")
         return 2
 
-    log(_color(f"③ 真连接测试{' + 测速' if st.get('speed_test') else ''}（并发 {st['concurrency']}）", BOLD))
+    step(f"真连接测试{' + 测速' if st.get('speed_test') else ''}（并发 {st['concurrency']}）")
     log(_color(f"  延迟测试 URL: {st['delay_test_url']}", DIM))
     if st.get("speed_test"):
         log(_color(f"  测速 URL: {st['speed_test_url']}", DIM))
@@ -164,17 +202,21 @@ def main() -> int:
         if r.ok:
             sp = f"{r.speed_mbps:.1f}MB/s" if r.speed_mbps else "-"
             log(f"  {head} {_color('✓', GREEN)} {name:<34} {r.delay_ms:>5}ms  {sp:>9}")
+        elif total > 500 and done % 25:
+            return  # 节点多时失败项抽样打印，避免刷屏
         else:
             log(f"  {head} {_color('✗', RED)} {name:<34} {_color((r.error or '')[:46], DIM)}")
 
     results = test_nodes(nodes, st, core_dir=core_dir, progress=progress)
+    results.extend(pre_dead)
     ok_count = sum(1 for r in results if r.ok)
 
-    log(_color("④ 筛选结果", BOLD))
+    step("筛选结果")
     keep = select_working(results, st)
     stats = {
         "total": len(raw_links),
-        "parsed": len(nodes),
+        "parsed": len(parsed_nodes),
+        "precheck_dropped": len(pre_dead),
         "tested": len(results),
         "ok": ok_count,
         "kept": len(keep),
@@ -191,13 +233,13 @@ def main() -> int:
 
     files = build_files(keep, results, cfg, stats)
     written = write_files(files, cfg)
-    log(_color("⑤ 生成订阅文件", BOLD))
+    step("生成订阅文件")
     for p in written:
         size = p.stat().st_size
         log(f"  ✓ {p}  ({size} B)")
 
     if cfg.get("github", {}).get("enabled") and not args.no_upload:
-        log(_color("⑥ 上传到 GitHub", BOLD))
+        step("上传到 GitHub")
         try:
             info = upload(cfg, files, log=log)
         except UploadError as exc:

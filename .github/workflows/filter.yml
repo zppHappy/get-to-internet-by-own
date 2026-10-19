@@ -42,6 +42,9 @@ jobs:
           chmod +x install_core.sh
           ./install_core.sh
 
+      - name: 冒烟测试（打桩跑一遍主流程）
+        run: python3 tests/smoke.py
+
       - name: 检查订阅源
         env:
           V2SUB_SOURCES: ${{ secrets.SUBS }}

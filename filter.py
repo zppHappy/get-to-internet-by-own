@@ -215,7 +215,7 @@ def main() -> int:
     keep = select_working(results, st)
     stats = {
         "total": len(raw_links),
-        "parsed": len(parsed_nodes),
+        "parsed": parsed_nodes,
         "precheck_dropped": len(pre_dead),
         "tested": len(results),
         "ok": ok_count,

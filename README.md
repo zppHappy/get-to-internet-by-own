@@ -39,6 +39,9 @@ pip install -r requirements.txt
 # 2. 下载代理内核到 ./bin（xray + sing-box，约 50MB）
 chmod +x install_core.sh
 ./install_core.sh              # 只要 xray 就 ./install_core.sh xray
+# Windows 用这个（bash 脚本不支持 Windows）：
+#   python install_core.py
+# 也可以指定目录，比如装到云服务器的别的盘：python install_core.py all --dest /opt/v2sub/bin
 
 # 3. 填订阅地址（一行一个，支持 http(s) 链接或本地文件）
 cp sources.example.txt sources.txt

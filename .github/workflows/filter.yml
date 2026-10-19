@@ -1,0 +1,65 @@
+name: update-subscription
+
+on:
+  schedule:
+    # 每 6 小时跑一次（UTC）
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "v2sub/**"
+      - "filter.py"
+      - "config.yaml"
+      - "install_core.sh"
+      - ".github/workflows/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-subscription
+  cancel-in-progress: true
+
+jobs:
+  filter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+
+      - name: 下载内核（xray + sing-box）
+        run: |
+          chmod +x install_core.sh
+          ./install_core.sh
+
+      - name: 筛选订阅
+        env:
+          # GITHUB_TOKEN 由 Actions 自动提供，本仓库写权限足够
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # 订阅地址放在仓库 Secrets 里，名称为 SUBS，多行、一行一个
+          V2SUB_SOURCES: ${{ secrets.SUBS }}
+        run: python3 filter.py -c config.yaml
+
+      - name: 提交结果
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A sub
+          if git diff --cached --quiet; then
+            echo "订阅内容无变化，跳过提交"
+          else
+            git commit -m "chore: update subscription $(date -u '+%Y-%m-%d %H:%M UTC')"
+            # filter.py 已用 Contents API 提交过 sub/base64.txt 与 nodes.txt，
+            # 远端 main 领先于本地 HEAD，直接 push 会 non-fast-forward 失败。
+            git pull --rebase --autostash origin main
+            git push
+          fi

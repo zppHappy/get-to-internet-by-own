@@ -1,0 +1,85 @@
+# ===========================================================================
+# v2sub 配置示例
+# 复制成 config.yaml 后修改（config.yaml 里不要写订阅链接，链接请放 sources.txt）
+# ===========================================================================
+
+# 订阅源：http(s) 链接，或 file:本地路径。
+# 建议把带隐私的订阅地址写进同目录的 sources.txt（每行一个，已 gitignore），
+# 或者用环境变量 V2SUB_SOURCES（换行/逗号分隔）。
+sources: []
+
+settings:
+  # 并发测试的节点数。8~16 比较合适；太高会被机场风控/本机端口耗尽
+  concurrency: 8
+  # 内核启动等待上限（秒）
+  startup_timeout: 6.0
+  # 抓取订阅的超时（秒）
+  fetch_timeout: 20
+
+  # ---- 真连接测试（等价于 V2RayN 的「真连接延迟」）----
+  # 起内核 → 通过节点真的发一次 HTTP 请求 → 记录耗时
+  delay_test_url: https://www.gstatic.com/generate_204
+  delay_timeout: 5
+  delay_retries: 2
+  accept_any_status: true
+  accept_status: [200, 204, 301, 302]
+
+  # ---- 测速（等价于 V2RayN 的「下载速度」）----
+  speed_test: true
+  speed_test_url: https://cachefly.cachefly.net/10mb.test
+  speed_timeout: 8
+  # >0 时用 Range 只下前 N 字节，省流量（0 = 不限）
+  speed_max_bytes: 0
+
+  # ---- 筛选条件 ----
+  max_delay_ms: 2500        # 延迟超过这个值就丢弃
+  min_speed_mbps: 0.5       # 测出速度低于这个值就丢弃（0 = 不看速度）
+  require_speed: false      # true = 必须测速成功才算可用
+  max_nodes: 0              # 最终最多保留多少个（0 = 不限）
+  protocols: [vmess, vless, trojan, ss, hysteria2, tuic]
+  dedupe: true              # 跨订阅去重（同协议+同服务器+同端口+同凭据）
+
+  # ---- 命名 ----
+  # 保留原节点名并加上延迟/速度，方便在 V2RayN 里挑
+  rename: true
+  rename_template: "{index:02d}·{delay}ms·{speed}·{name}"
+  # 可用占位符：{index} {name} {delay} {speed} {proto} {server} {port}
+
+  # 内核目录（install_core.sh 默认装到 ./bin）
+  core_dir: ./bin
+
+output:
+  dir: ./sub
+  base64: base64.txt      # 给 V2RayN 用的订阅（base64）
+  plain: nodes.txt        # 明文链接，方便肉眼检查
+  report: report.json
+  markdown: report.md
+  include_links_in_report: false   # true 会把完整链接写进 report.json（含密钥，慎用）
+
+# ---------------------------------------------------------------------------
+# 上传到 GitHub，生成一个固定的订阅地址
+# ---------------------------------------------------------------------------
+github:
+  enabled: false
+  # Token 放在环境变量里，别写进配置文件
+  # repo 模式：需要 repo 权限（classic）或 Contents: Read and write（fine-grained）
+  # gist 模式：需要 gist 权限
+  token_env: GITHUB_TOKEN
+
+  mode: repo               # repo | gist
+
+  # --- mode: repo ---
+  owner: your-name         # 留空则自动用环境变量 GITHUB_REPOSITORY 里的 owner
+  repo: v2sub              # 留空则自动用环境变量 GITHUB_REPOSITORY 里的仓库名
+  path: sub/base64.txt
+  branch: main
+  commit_message: "chore: update filtered subscription"
+  upload_plain: false
+  plain_path: sub/nodes.txt
+
+  # --- mode: gist ---
+  # 第一次留空会自动创建 secret gist，把返回的 id 填进来，之后每次覆盖同一个 gist
+  gist_id: ""
+  gist_filename: sub.txt
+  gist_description: v2sub filtered subscription
+  gist_public: false

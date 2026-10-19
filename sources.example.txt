@@ -1,0 +1,6 @@
+# 订阅地址列表：一行一个，# 开头是注释
+# 支持 http(s) 链接，也支持本地文件（file:/绝对路径）
+# 这个文件已加入 .gitignore，不会被提交
+
+# https://example.com/api/v1/client/subscribe?token=xxxxxxxx
+# file:/Users/you/Downloads/my_sub.txt

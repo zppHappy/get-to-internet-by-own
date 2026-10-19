@@ -1,0 +1,60 @@
+# v2sub 运行配置（不含任何隐私信息，可以放心提交到仓库）
+# 订阅链接请写进 sources.txt 或环境变量 V2SUB_SOURCES
+
+sources:
+  # 公开订阅可以直接写在这里（会随仓库一起提交，别把私有机场链接写进来）
+  # raw 在国内经常直连不通，所以同时挂一个 jsDelivr 镜像，脚本内部会去重
+  - https://raw.githubusercontent.com/MatinGhanbari/v2ray-configs/main/subscriptions/v2ray/all_sub.txt
+  - https://cdn.jsdelivr.net/gh/MatinGhanbari/v2ray-configs@main/subscriptions/v2ray/all_sub.txt
+
+settings:
+  concurrency: 16
+  startup_timeout: 10.0
+  fetch_timeout: 20
+
+  delay_test_url: https://www.gstatic.com/generate_204
+  delay_timeout: 5
+  delay_retries: 1
+  accept_any_status: true
+  accept_status: [200, 204, 301, 302]
+
+  speed_test: false          # 只测真连接；想要速度数据改成 true
+  speed_test_url: https://cachefly.cachefly.net/10mb.test
+  speed_timeout: 8
+  speed_max_bytes: 0
+
+  max_delay_ms: 5000         # 0 = 不限制延迟，只要是通的就留
+  min_speed_mbps: 0.5
+  require_speed: false
+  max_nodes: 0
+  protocols: [vmess, vless, trojan, ss, hysteria2, tuic]
+  dedupe: true
+
+  rename: true
+  rename_template: "{index:02d}·{delay}ms·{name}"
+  core_dir: ./bin
+
+output:
+  dir: ./sub
+  base64: base64.txt
+  plain: nodes.txt
+  report: report.json
+  markdown: report.md
+  include_links_in_report: false
+
+github:
+  enabled: true
+  token_env: GITHUB_TOKEN
+  mode: repo
+  owner: "zppHappy"
+  repo: "get-to-internet-by-own"
+  path: sub/base64.txt
+  branch: main
+  commit_message: "chore: update filtered subscription"
+  upload_plain: true
+  plain_path: sub/nodes.txt
+
+  gist_id: ""
+  gist_filename: sub.txt
+  gist_description: v2sub filtered subscription
+  gist_public: false

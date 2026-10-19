@@ -2,6 +2,10 @@
 
 把一堆 V2RayN 订阅合并 → **真的连上去测**（不是 ping 端口）→ 只留下能用的节点 → 生成一条新的订阅地址。
 
+> **看筛选结果**：<https://github.com/zppHappy/get-to-internet-by-own/blob/main/sub/report.md>
+> 每次 Actions 跑完自动重写，含统计、协议分布和前 50 个节点的延迟表格。
+> （`sub/base64.txt` 是给客户端吃的 base64，人眼看不了，属于正常现象。）
+
 筛完的结果自动推到 GitHub，得到一个固定链接，粘进 V2RayN 就是一个永远只有「活节点」的订阅。
 
 ---

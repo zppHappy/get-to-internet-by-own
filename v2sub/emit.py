@@ -132,18 +132,78 @@ def build_files(keep, all_results, cfg, stats) -> Dict[str, str]:
         ],
     }
     files["report"] = json.dumps(report, ensure_ascii=False, indent=2) + "\n"
-    files["markdown"] = _markdown(report, keep, stats)
+    files["markdown"] = _markdown(report, keep, stats, cfg)
     return files
 
 
-def _markdown(report, keep, stats) -> str:
+def _markdown(report, keep, stats, cfg=None) -> str:
+    """给人和 GitHub 网页看的页面：统计 + 可读的节点表格。"""
+    gh = (cfg or {}).get("github") or {}
+    owner, repo = (gh.get("owner") or "").strip(), (gh.get("repo") or "").strip()
+    branch = gh.get("branch") or "main"
+    has_repo = bool(owner and repo)
+
+    skipped = stats.get("skipped") or {}
     lines = [
-        "# 订阅筛选报告",
+        "# 可用节点（自动生成）",
         "",
-        f"- 生成时间：`{report['generated_at']}`",
-        f"- 抓取节点：**{stats['total']}** 个（来自 {stats['sources']} 个订阅）",
-        f"- 测试通过：**{stats['ok']}** 个",
-        f"- 最终保留：**{stats['kept']}** 个",
+        f"> 每次筛选后自动重写，最后更新：`{report['generated_at']}`",
+        "",
+    ]
+
+    if has_repo:
+        raw = f"https://raw.githubusercontent.com/{owner}/{repo}/{branch}/sub/base64.txt"
+        mirror = f"https://cdn.jsdelivr.net/gh/{owner}/{repo}@{branch}/sub/base64.txt"
+        lines += [
+            "## 订阅地址",
+            "",
+            "```",
+            raw,
+            "```",
+            "",
+            "国内直连 raw 经常不通，用 jsDelivr 镜像（约 12 小时缓存，加 `?t=时间戳` 可强制刷新）：",
+            "",
+            "```",
+            mirror,
+            "```",
+            "",
+        ]
+
+    lines += [
+        "## 本次统计",
+        "",
+        "| 项目 | 数量 |",
+        "|---|---|",
+        f"| 抓取链接 | {stats.get('total', 0)} |",
+        f"| 去重后节点 | {stats.get('parsed', 0)} |",
+        f"| TCP 预筛剔除 | {stats.get('precheck_dropped', 0)} |",
+        f"| 真连接测试 | {stats.get('tested', 0)} |",
+        f"| 测试通过 | {stats.get('ok', 0)} |",
+        f"| **最终保留** | **{stats.get('kept', 0)}** |",
+        f"| 耗时 | {stats.get('elapsed_sec', 0)} 秒 |",
+        "",
+    ]
+    if any(skipped.values()):
+        lines += [
+            f"> 解析阶段跳过：重复 {skipped.get('dup', 0)}、协议未启用 {skipped.get('proto', 0)}、"
+            f"无法解析 {skipped.get('parse', 0)}",
+            "",
+        ]
+
+    # 协议分布
+    by_proto: Dict[str, int] = {}
+    for r in keep:
+        by_proto[r.node.proto] = by_proto.get(r.node.proto, 0) + 1
+    if by_proto:
+        lines += [
+            "## 协议分布",
+            "",
+            " · ".join(f"{k} {v}" for k, v in sorted(by_proto.items(), key=lambda x: -x[1])),
+            "",
+        ]
+
+    lines += [
+        "## 节点明细（按延迟升序）",
         "",
         "| # | 名称 | 协议 | 服务器 | 延迟 | 速度 |",
         "|---|------|------|--------|------|------|",
@@ -154,7 +214,7 @@ def _markdown(report, keep, stats) -> str:
             f"| {i} | {name} | {r.node.proto} | `{r.node.server}:{r.node.port}` | {r.delay_ms} ms | {_speed_str(r)} |"
         )
     if len(keep) > 50:
-        lines.append(f"\n> 仅展示前 50 个，完整数据见 report.json")
+        lines.append(f"\n> 仅展示前 50 个，共 {len(keep)} 个；完整列表见 `sub/nodes.txt`。")
     lines.append("")
     return "\n".join(lines)
 

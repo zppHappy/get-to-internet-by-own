@@ -66,6 +66,9 @@ github:
   commit_message: "chore: update filtered subscription"
   upload_plain: true
   plain_path: sub/nodes.txt
+  # 人看的页面：GitHub 会把 .md 渲染成表格，跑完立刻能刷出新结果
+  upload_markdown: true
+  markdown_path: sub/report.md
 
   gist_id: ""
   gist_filename: sub.txt

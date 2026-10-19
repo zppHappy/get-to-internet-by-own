@@ -139,4 +139,10 @@ def upload(cfg: dict, files: Dict[str, str], log=print) -> Dict[str, str]:
         upload_repo_file(token, owner, repo, plain_path, branch, files["plain"], msg)
         log(f"  ✓ 已上传明文列表: {plain_path}")
 
+    # 人看的页面：GitHub 会把 .md 渲染成表格，订阅地址变化后立刻能刷出来
+    if gh.get("upload_markdown", True) and files.get("markdown"):
+        md_path = gh.get("markdown_path") or "sub/report.md"
+        upload_repo_file(token, owner, repo, md_path, branch, files["markdown"], msg)
+        log(f"  ✓ 已更新可读报告: {md_path}")
+
     return out

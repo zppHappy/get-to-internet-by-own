@@ -58,6 +58,8 @@ DEFAULTS: Dict[str, Any] = {
         "commit_message": "chore: update filtered subscription",
         "upload_plain": False,
         "plain_path": "sub/nodes.txt",
+        "upload_markdown": True,
+        "markdown_path": "sub/report.md",
         "gist_id": "",
         "gist_filename": "sub.txt",
         "gist_description": "v2sub filtered subscription",

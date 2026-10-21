@@ -56,7 +56,7 @@ def select_working(results, settings) -> List[Any]:
     return keep
 
 
-def render_name(res, index: int, template: str) -> str:
+def render_name(res, index: int, template: str, stamp: str = "") -> str:
     node: Node = res.node
     name = (node.name or f"{node.server}:{node.port}").strip()
     # 名字里已有的 "|" 会让模板看着乱，统一压缩空白
@@ -70,19 +70,21 @@ def render_name(res, index: int, template: str) -> str:
             proto=node.proto,
             server=node.server,
             port=node.port,
+            # {time} 是「本轮筛选时间」，MMDD-HHMM，方便在客户端一眼看出新旧
+            time=stamp,
         ).strip()
     except (KeyError, IndexError, ValueError):
         return f"{name} | {res.delay_ms}ms | {_speed_str(res)}"
 
 
-def build_links(keep, settings) -> List[str]:
+def build_links(keep, settings, stamp: str = "") -> List[str]:
     template = settings.get("rename_template") or "{name}"
     do_rename = bool(settings.get("rename", True))
     links = []
     for i, r in enumerate(keep, 1):
         link = r.node.link
         if do_rename:
-            link = rename_link(link, render_name(r, i, template))
+            link = rename_link(link, render_name(r, i, template, stamp))
         links.append(link)
     return links
 
@@ -91,7 +93,8 @@ def build_files(keep, all_results, cfg, stats) -> Dict[str, str]:
     """生成待写入/上传的文件内容。key 是逻辑名，value 是文本内容。"""
     settings = cfg["settings"]
     out_cfg = cfg["output"]
-    links = build_links(keep, settings)
+    stamp = time.strftime("%m%d-%H%M")
+    links = build_links(keep, settings, stamp)
     plain = "\n".join(links) + ("\n" if links else "")
     b64 = base64.b64encode(plain.encode("utf-8")).decode("ascii")
 

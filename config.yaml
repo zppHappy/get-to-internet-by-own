@@ -45,7 +45,8 @@ settings:
   dedupe: true
 
   rename: true
-  rename_template: "{index:02d}·{delay}ms·{name}"
+  # {time} = 本轮筛选时间（MMDD-HHMM），一眼能看出是不是新结果
+  rename_template: "{time}·{index:02d}·{delay}ms·{name}"
   core_dir: ./bin
 
 output:

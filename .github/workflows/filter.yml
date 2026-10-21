@@ -2,8 +2,9 @@ name: update-subscription
 
 on:
   schedule:
-    # 每 6 小时跑一次（UTC）
-    - cron: "0 */6 * * *"
+    # 每 3 小时跑一次（UTC）。换算北京时间：02:00 / 05:00 / 08:00 / 11:00
+    # / 14:00 / 17:00 / 20:00 / 23:00
+    - cron: "0 */3 * * *"
   workflow_dispatch:
   push:
     branches: [main]

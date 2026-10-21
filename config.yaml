@@ -27,6 +27,16 @@ settings:
   accept_any_status: true
   accept_status: [200, 204, 301, 302]
 
+  # ---- 国内方向探测（可选）----
+  # 经这个节点再访问一次国内站点，记录「节点 → 中国」的延迟。
+  # 用途只有一个：作为「节点离中国多近」的排序依据，让近的排前面。
+  # ⚠️ 它不能证明「中国 → 节点」也通 —— 那是你实际使用的方向，
+  #    只有把本工具跑在国内机器上才算数。详见 README。
+  cn_test_url: https://www.baidu.com
+  cn_test_timeout: 5
+  cn_test_required: false    # true = 连不上国内目标的节点直接丢弃（不建议，会误杀）
+  cn_sort: true              # 按「到国内延迟」升序排列，小的在前
+
   # ---- 测速（默认关闭）----
   # 关掉的原因：测速是在 GitHub 美国机房跑的，测出来的速度对国内使用没有参考价值，
   # 而且每个节点要多下载 2MB，白白拉长运行时间。
@@ -49,8 +59,8 @@ settings:
   dedupe: true
 
   rename: true
-  # {time} = 本轮筛选时间（MMDD-HHMM），一眼能看出是不是新结果
-  rename_template: "{time}·{index:02d}·{delay}ms·{name}"
+  # {time} = 本轮筛选时间（MMDD-HHMM），{cn} = 到国内目标的延迟（CN45 / CN-）
+  rename_template: "{time}·{index:02d}·{cn}·{delay}ms·{name}"
   # 时间戳用哪个时区：8 = 北京时间。GitHub runner 是 UTC，不设会差 8 小时。
   stamp_tz: 8
   core_dir: ./bin

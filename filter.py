@@ -189,6 +189,8 @@ def main() -> int:
 
     step(f"真连接测试{' + 测速' if st.get('speed_test') else ''}（并发 {st['concurrency']}）")
     log(_color(f"  延迟测试 URL: {st['delay_test_url']}", DIM))
+    if st.get("cn_test_url"):
+        log(_color(f"  国内方向探测: {st['cn_test_url']}（仅用于排序）", DIM))
     if st.get("speed_test"):
         log(_color(f"  测速 URL: {st['speed_test_url']}", DIM))
 
@@ -219,12 +221,16 @@ def main() -> int:
         "precheck_dropped": len(pre_dead),
         "tested": len(results),
         "ok": ok_count,
+        "cn_ok": sum(1 for r in results if r.ok and getattr(r, "cn_ok", False)),
         "kept": len(keep),
         "sources": len(sources),
         "elapsed_sec": round(time.time() - started, 1),
         "skipped": skipped,
     }
     log(f"  测试通过 {_color(str(ok_count), GREEN)} / {len(results)}，最终保留 {_color(str(len(keep)), BOLD)}")
+    if st.get("cn_test_url"):
+        cn_n = stats["cn_ok"]
+        log(_color(f"  其中 {cn_n} 个可访问国内目标（节点→中国方向，不代表国内能连上）", DIM))
     log(_color(f"  耗时 {stats['elapsed_sec']}s", DIM))
 
     if not keep:

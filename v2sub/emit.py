@@ -26,11 +26,19 @@ def _speed_str(res) -> str:
     return f"{res.speed_mbps:.1f}MB/s"
 
 
+def _cn_str(res) -> str:
+    """节点名里显示的国内方向延迟：CN45 / CN- 。"""
+    if getattr(res, "cn_ok", False) and res.cn_delay_ms > 0:
+        return f"CN{res.cn_delay_ms}"
+    return "CN-"
+
+
 def select_working(results, settings) -> List[Any]:
     """按阈值筛选出可用节点，并做去重/排序/截断。"""
     max_delay = int(settings.get("max_delay_ms", 0) or 0)
     min_speed = float(settings.get("min_speed_mbps", 0) or 0)
     require_speed = bool(settings.get("require_speed", False))
+    require_cn = bool(settings.get("cn_test_required", False))
 
     keep = []
     for r in results:
@@ -41,6 +49,8 @@ def select_working(results, settings) -> List[Any]:
         if require_speed and r.speed_mbps <= 0:
             continue
         if min_speed and r.speed_mbps and r.speed_mbps < min_speed:
+            continue
+        if require_cn and not getattr(r, "cn_ok", False):
             continue
         keep.append(r)
 
@@ -59,7 +69,17 @@ def select_working(results, settings) -> List[Any]:
                 best[k] = r
         keep = list(best.values())
 
-    keep.sort(key=lambda r: (-r.speed_mbps, r.delay_ms))
+    if settings.get("cn_sort", True):
+        # 先按「到国内的延迟」升序（越小越靠中国），再按普通延迟
+        keep.sort(
+            key=lambda r: (
+                0 if getattr(r, "cn_ok", False) else 1,
+                r.cn_delay_ms if getattr(r, "cn_ok", False) else 10 ** 6,
+                r.delay_ms,
+            )
+        )
+    else:
+        keep.sort(key=lambda r: (-r.speed_mbps, r.delay_ms))
     limit = int(settings.get("max_nodes", 0) or 0)
     if limit > 0:
         keep = keep[:limit]
@@ -82,6 +102,8 @@ def render_name(res, index: int, template: str, stamp: str = "") -> str:
             port=node.port,
             # {time} 是「本轮筛选时间」，MMDD-HHMM，方便在客户端一眼看出新旧
             time=stamp,
+            # {cn} 是经该节点访问国内目标的延迟，形如 CN45 / CN-
+            cn=_cn_str(res),
         ).strip()
     except (KeyError, IndexError, ValueError):
         return f"{name} | {res.delay_ms}ms | {_speed_str(res)}"
@@ -128,6 +150,9 @@ def build_files(keep, all_results, cfg, stats) -> Dict[str, str]:
                 "ok": r.ok,
                 "delay_ms": r.delay_ms,
                 "speed_mbps": r.speed_mbps,
+                "cn_ok": getattr(r, "cn_ok", False),
+                "cn_delay_ms": getattr(r, "cn_delay_ms", 0),
+                "cn_error": getattr(r, "cn_error", ""),
                 "error": r.error,
                 **({"link": r.node.link} if out_cfg.get("include_links_in_report") else {}),
             }
@@ -216,16 +241,30 @@ def _markdown(report, keep, stats, cfg=None) -> str:
             "",
         ]
 
+    cn_ok = sum(1 for r in keep if getattr(r, "cn_ok", False))
+    if any(getattr(r, "cn_delay_ms", 0) or getattr(r, "cn_error", "") for r in keep):
+        lines += [
+            "## 到国内目标的延迟（节点 → 中国，非中国 → 节点）",
+            "",
+            f"保留的 {len(keep)} 个节点中，有 **{cn_ok}** 个能经代理访问到国内目标站。",
+            "",
+            "> 这个数字只说明「节点能到中国」以及路径有多近，"
+            "**不能证明「中国能连到这个节点」**——后者才是你实际使用的方向，"
+            "必须在国内的机器上测才算数。",
+            "",
+        ]
+
     lines += [
-        "## 节点明细（按延迟升序）",
+        "## 节点明细（按到国内延迟升序）",
         "",
-        "| # | 名称 | 协议 | 服务器 | 延迟 | 速度 |",
-        "|---|------|------|--------|------|------|",
+        "| # | 名称 | 协议 | 服务器 | 延迟 | 国内方向 | 速度 |",
+        "|---|------|------|--------|------|----------|------|",
     ]
     for i, r in enumerate(keep[:50], 1):
         name = (r.node.name or "").replace("|", "/")[:40]
+        cn_cell = f"{r.cn_delay_ms} ms" if getattr(r, "cn_ok", False) else "不可达"
         lines.append(
-            f"| {i} | {name} | {r.node.proto} | `{r.node.server}:{r.node.port}` | {r.delay_ms} ms | {_speed_str(r)} |"
+            f"| {i} | {name} | {r.node.proto} | `{r.node.server}:{r.node.port}` | {r.delay_ms} ms | {cn_cell} | {_speed_str(r)} |"
         )
     if len(keep) > 50:
         lines.append(f"\n> 仅展示前 50 个，共 {len(keep)} 个；完整列表见 `sub/nodes.txt`。")

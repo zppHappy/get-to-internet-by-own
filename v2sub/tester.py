@@ -23,6 +23,11 @@ class TestResult:
     delay_ms: int = 0
     speed_mbps: float = 0.0
     bytes_downloaded: int = 0
+    # 经节点访问「国内目标站」（默认 baidu.com）的结果。
+    # 只代表「节点能到中国」，不等于「中国能到节点」，见 README 说明。
+    cn_ok: bool = False
+    cn_delay_ms: int = 0
+    cn_error: str = ""
     error: str = ""
     attempts: int = 0
     tested_at: float = field(default_factory=time.time)
@@ -148,6 +153,25 @@ def _test_once(node, settings, core_dir, core: str) -> TestResult:
 
         res.delay_ms = best
         res.ok = True
+
+        # 额外：经这个节点访问国内目标站（默认 baidu.com）。
+        # 注意方向是「节点 → 中国」，只能说明节点到中国的路径通不通、有多近，
+        # 不能证明「中国 → 节点」也通（后者才是你实际使用的方向）。
+        cn_url = (settings.get("cn_test_url") or "").strip()
+        if cn_url:
+            cn_timeout = float(settings.get("cn_test_timeout", 5))
+            cn_code, cn_secs, _cn_size, cn_err = http_via_socks(proc.port, cn_url, cn_timeout)
+            if cn_err or cn_code == 0:
+                res.cn_error = cn_err or f"HTTP {cn_code}"
+            elif not (accept_any or cn_code in accept):
+                res.cn_error = f"HTTP {cn_code}"
+            else:
+                res.cn_ok = True
+                res.cn_delay_ms = max(1, int(round(cn_secs * 1000)))
+            if settings.get("cn_test_required") and not res.cn_ok:
+                res.ok = False
+                res.error = f"国内目标不可达: {res.cn_error}"
+                return res
 
         if settings.get("speed_test", True):
             sp_url = settings.get("speed_test_url")

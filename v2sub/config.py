@@ -22,6 +22,11 @@ DEFAULTS: Dict[str, Any] = {
         "delay_retries": 2,
         "accept_any_status": True,
         "accept_status": [200, 204, 301, 302],
+        # 国内方向探测（节点 → 中国，仅用于排序，不能证明中国 → 节点）
+        "cn_test_url": "",
+        "cn_test_timeout": 5.0,
+        "cn_test_required": False,
+        "cn_sort": True,
         # 测速（和 v2rayN 的「下载速度」一致：通过代理真的下载一段数据）
         "speed_test": True,
         "speed_test_url": "https://cachefly.cachefly.net/10mb.test",

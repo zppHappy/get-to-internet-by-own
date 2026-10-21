@@ -37,6 +37,7 @@ DEFAULTS: Dict[str, Any] = {
         # 命名
         "rename": True,
         "rename_template": "{name} | {delay}ms | {speed}",
+        "stamp_tz": 8,
         "core_dir": "./bin",
     },
     "output": {

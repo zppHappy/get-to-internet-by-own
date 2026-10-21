@@ -3,11 +3,21 @@ from __future__ import annotations
 
 import base64
 import json
-import time
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 from .parse import Node, rename_link
+
+
+def _now(settings) -> datetime:
+    """按配置时区取当前时间。GitHub Actions 的 runner 是 UTC，
+    直接 strftime 会和用户本地时钟差 8 小时，所以这里显式换算。"""
+    try:
+        offset = float(settings.get("stamp_tz", 8) or 0)
+    except (TypeError, ValueError):
+        offset = 8.0
+    return datetime.now(timezone(timedelta(hours=offset)))
 
 
 def _speed_str(res) -> str:
@@ -93,7 +103,8 @@ def build_files(keep, all_results, cfg, stats) -> Dict[str, str]:
     """生成待写入/上传的文件内容。key 是逻辑名，value 是文本内容。"""
     settings = cfg["settings"]
     out_cfg = cfg["output"]
-    stamp = time.strftime("%m%d-%H%M")
+    now = _now(settings)
+    stamp = now.strftime("%m%d-%H%M")
     links = build_links(keep, settings, stamp)
     plain = "\n".join(links) + ("\n" if links else "")
     b64 = base64.b64encode(plain.encode("utf-8")).decode("ascii")
@@ -104,7 +115,7 @@ def build_files(keep, all_results, cfg, stats) -> Dict[str, str]:
     }
 
     report = {
-        "generated_at": time.strftime("%Y-%m-%d %H:%M:%S%z"),
+        "generated_at": now.strftime("%Y-%m-%d %H:%M:%S%z"),
         "stats": stats,
         "nodes": [
             {

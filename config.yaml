@@ -51,6 +51,8 @@ settings:
   rename: true
   # {time} = 本轮筛选时间（MMDD-HHMM），一眼能看出是不是新结果
   rename_template: "{time}·{index:02d}·{delay}ms·{name}"
+  # 时间戳用哪个时区：8 = 北京时间。GitHub runner 是 UTC，不设会差 8 小时。
+  stamp_tz: 8
   core_dir: ./bin
 
 output:

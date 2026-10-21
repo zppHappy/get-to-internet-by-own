@@ -26,7 +26,7 @@ DEFAULTS: Dict[str, Any] = {
         "cn_test_url": "",
         "cn_test_timeout": 5.0,
         "cn_test_required": False,
-        "cn_sort": True,
+        "cn_sort": False,
         # 测速（和 v2rayN 的「下载速度」一致：通过代理真的下载一段数据）
         "speed_test": True,
         "speed_test_url": "https://cachefly.cachefly.net/10mb.test",

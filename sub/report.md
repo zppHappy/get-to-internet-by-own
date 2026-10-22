@@ -1,6 +1,6 @@
 # 可用节点（自动生成）
 
-> 每次筛选后自动重写，最后更新：`2026-10-23 00:48:31+0800`
+> 每次筛选后自动重写，最后更新：`2026-10-23 05:19:57+0800`
 
 ## 订阅地址
 
@@ -18,23 +18,23 @@ https://cdn.jsdelivr.net/gh/zppHappy/get-to-internet-by-own@main/sub/base64.txt
 
 | 项目 | 数量 |
 |---|---|
-| 抓取链接 | 19648 |
-| 去重后节点 | 8034 |
-| TCP 预筛剔除 | 3960 |
-| 真连接测试 | 8034 |
-| 测试通过 | 714 |
-| **最终保留** | **714** |
-| 耗时 | 309.1 秒 |
+| 抓取链接 | 19671 |
+| 去重后节点 | 8004 |
+| TCP 预筛剔除 | 3920 |
+| 真连接测试 | 8004 |
+| 测试通过 | 731 |
+| **最终保留** | **731** |
+| 耗时 | 294.6 秒 |
 
-> 解析阶段跳过：重复 11587、协议未启用 0、无法解析 27
+> 解析阶段跳过：重复 11660、协议未启用 0、无法解析 7
 
 ## 协议分布
 
-vless 388 · ss 143 · vmess 100 · trojan 76 · hysteria2 7
+vless 393 · ss 147 · vmess 123 · trojan 62 · hysteria2 6
 
 ## 国内方向探测（节点 → 中国，非中国 → 节点）
 
-保留的 714 个节点中，有 **576** 个能经代理访问到国内目标站，**138** 个访问不到。
+保留的 731 个节点中，有 **629** 个能经代理访问到国内目标站，**102** 个访问不到。
 
 > 两个必须说清楚的点：
 > 1. 这是「节点 → 中国」方向，**不能证明「中国能连到这个节点」**——后者才是你实际使用的方向，必须在国内机器上测才算数。
@@ -44,55 +44,55 @@ vless 388 · ss 143 · vmess 100 · trojan 76 · hysteria2 7
 
 | # | 名称 | 协议 | 服务器 | 延迟 | 到国内目标 | 速度 |
 |---|------|------|--------|------|------------|------|
-| 1 | EPODONIOS | vmess | `129.146.77.248:39495` | 24 ms | 1490 ms | - |
-| 2 | EPODONIOS | ss | `95.215.201.18:19999` | 26 ms | 705 ms | - |
-| 3 | EPODONIOS | vless | `104.18.35.86:8080` | 72 ms | 1320 ms | - |
-| 4 | EPODONIOS | vless | `172.64.150.28:2082` | 78 ms | 789 ms | - |
-| 5 | EPODONIOS | ss | `173.244.56.6:443` | 82 ms | 930 ms | - |
-| 6 | EPODONIOS | ss | `156.146.38.167:443` | 90 ms | 893 ms | - |
-| 7 | EPODONIOS | ss | `156.146.38.168:443` | 90 ms | 1037 ms | - |
-| 8 | EPODONIOS | ss | `156.146.38.169:443` | 90 ms | 1035 ms | - |
-| 9 | ⚡ b2n.ir/v2ray-configs / 150 | vless | `188.114.98.0:443` | 94 ms | 871 ms | - |
-| 10 | EPODONIOS | vless | `188.114.97.6:443` | 97 ms | 790 ms | - |
-| 11 | EPODONIOS | vless | `104.18.0.181:2082` | 97 ms | 758 ms | - |
-| 12 | EPODONIOS | vless | `162.159.135.234:443` | 98 ms | 787 ms | - |
-| 13 | EPODONIOS | vless | `104.18.20.69:443` | 100 ms | 770 ms | - |
-| 14 | EPODONIOS | vless | `188.114.97.6:443` | 100 ms | 784 ms | - |
-| 15 | EPODONIOS | ss | `156.146.38.170:443` | 100 ms | 862 ms | - |
-| 16 | EPODONIOS | vless | `188.114.96.6:443` | 101 ms | 864 ms | - |
-| 17 | EPODONIOS | vless | `172.66.0.162:443` | 101 ms | 786 ms | - |
-| 18 | EPODONIOS | vless | `104.20.6.134:443` | 106 ms | 792 ms | - |
-| 19 | EPODONIOS | vless | `188.114.98.0:443` | 106 ms | 788 ms | - |
-| 20 | EPODONIOS | vless | `104.18.41.190:443` | 106 ms | 798 ms | - |
-| 21 | EPODONIOS | vless | `188.114.98.0:443` | 108 ms | 1594 ms | - |
-| 22 | EPODONIOS | vless | `188.114.98.0:443` | 111 ms | 800 ms | - |
-| 23 | EPODONIOS | vless | `172.67.155.65:2053` | 112 ms | 915 ms | - |
-| 24 | EPODONIOS | vless | `172.64.152.241:443` | 113 ms | 835 ms | - |
-| 25 | EPODONIOS | vless | `104.18.0.181:2082` | 114 ms | 1859 ms | - |
-| 26 | US 🇺🇸 / @Raydikalx / 8D9E8F | vmess | `169.197.142.22:18000` | 115 ms | 1312 ms | - |
-| 27 | EPODONIOS | vless | `104.18.43.174:443` | 116 ms | 811 ms | - |
-| 28 | EPODONIOS | vless | `188.114.98.0:443` | 117 ms | 837 ms | - |
-| 29 | EPODONIOS | vless | `cf.877774.xyz:443` | 118 ms | 798 ms | - |
-| 30 | EPODONIOS | vless | `86.109.75.183:443` | 119 ms | 1264 ms | - |
-| 31 | EPODONIOS | vless | `172.64.150.43:443` | 119 ms | 791 ms | - |
-| 32 | EPODONIOS | vless | `104.21.91.244:443` | 119 ms | 775 ms | - |
-| 33 | EPODONIOS | vless | `188.114.98.0:443` | 119 ms | 820 ms | - |
-| 34 | EPODONIOS | vless | `172.67.155.65:8443` | 120 ms | 778 ms | - |
-| 35 | EPODONIOS | vless | `172.66.0.162:443` | 121 ms | 781 ms | - |
-| 36 | EPODONIOS | vless | `104.21.91.244:443` | 121 ms | 805 ms | - |
-| 37 | EPODONIOS | vless | `172.67.155.65:2053` | 121 ms | 788 ms | - |
-| 38 | EPODONIOS | vless | `188.114.98.0:443` | 122 ms | 991 ms | - |
-| 39 | EPODONIOS | vless | `188.114.97.6:443` | 122 ms | 837 ms | - |
-| 40 | EPODONIOS | vless | `188.114.98.0:443` | 125 ms | 800 ms | - |
-| 41 | EPODONIOS | vless | `188.114.97.6:443` | 127 ms | 791 ms | - |
-| 42 | EPODONIOS | vless | `172.64.150.43:8080` | 127 ms | 784 ms | - |
-| 43 | EPODONIOS | vless | `188.114.97.6:443` | 128 ms | 1022 ms | - |
-| 44 | EPODONIOS | vless | `188.114.98.0:443` | 128 ms | 804 ms | - |
-| 45 | ⚡ b2n.ir/v2ray-configs / 737 | vless | `188.114.97.6:443` | 128 ms | 893 ms | - |
-| 46 | US 🇺🇸 / @Raydikalx / 94BA12 | vmess | `84.17.41.2:18000` | 128 ms | 3876 ms | - |
-| 47 | EPODONIOS | vless | `172.67.155.65:8443` | 129 ms | 822 ms | - |
-| 48 | EPODONIOS | vless | `172.67.155.65:8443` | 130 ms | 777 ms | - |
-| 49 | EPODONIOS | vless | `cf.090227.xyz:443` | 131 ms | 808 ms | - |
-| 50 | EPODONIOS | vless | `cf.877774.xyz:443` | 133 ms | 767 ms | - |
+| 1 | US 🇺🇸 / @Raydikalx / B79C28 | vmess | `169.197.142.22:18000` | 36 ms | 905 ms | - |
+| 2 | EPODONIOS | vless | `47.251.108.158:443` | 61 ms | 651 ms | - |
+| 3 | EPODONIOS | vless | `172.64.150.43:443` | 65 ms | 901 ms | - |
+| 4 | EPODONIOS | vless | `172.66.0.162:443` | 67 ms | 1097 ms | - |
+| 5 | EPODONIOS | vless | `104.21.91.244:443` | 68 ms | 1193 ms | - |
+| 6 | ⚡ b2n.ir/v2ray-configs / 474 | vless | `172.64.150.43:8080` | 68 ms | 1321 ms | - |
+| 7 | EPODONIOS | vless | `www.speedtest.net:443` | 69 ms | 1009 ms | - |
+| 8 | EPODONIOS | vless | `188.114.98.0:443` | 70 ms | 707 ms | - |
+| 9 | US 🇺🇸 / @Raydikalx / 18811D | vmess | `129.146.143.80:48111` | 70 ms | 920 ms | - |
+| 10 | EPODONIOS | vless | `104.18.32.47:443` | 71 ms | 700 ms | - |
+| 11 | EPODONIOS | vless | `162.159.135.234:443` | 71 ms | 705 ms | - |
+| 12 | EPODONIOS | vless | `188.114.97.6:443` | 74 ms | 697 ms | - |
+| 13 | EPODONIOS | vless | `188.114.98.0:443` | 74 ms | 880 ms | - |
+| 14 | EPODONIOS | vless | `cf.130519.xyz:443` | 74 ms | 938 ms | - |
+| 15 | EPODONIOS | ss | `95.215.201.18:19999` | 75 ms | 1166 ms | - |
+| 16 | EPODONIOS | vless | `188.114.98.0:443` | 75 ms | 739 ms | - |
+| 17 | EPODONIOS | vless | `172.67.155.65:2053` | 75 ms | 1568 ms | - |
+| 18 | ⚡ b2n.ir/v2ray-configs / 807 | vless | `188.114.97.6:443` | 76 ms | 1202 ms | - |
+| 19 | EPODONIOS | vless | `188.114.97.6:443` | 78 ms | 794 ms | - |
+| 20 | EPODONIOS | vless | `172.64.152.241:443` | 78 ms | 743 ms | - |
+| 21 | EPODONIOS | vless | `188.114.98.0:443` | 79 ms | 708 ms | - |
+| 22 | EPODONIOS | vless | `188.114.97.6:443` | 80 ms | 906 ms | - |
+| 23 | EPODONIOS | vless | `188.114.98.0:443` | 80 ms | 882 ms | - |
+| 24 | EPODONIOS | vless | `172.67.155.65:2053` | 80 ms | 746 ms | - |
+| 25 | EPODONIOS | vless | `188.114.98.0:443` | 81 ms | 741 ms | - |
+| 26 | EPODONIOS | vless | `172.66.0.162:443` | 83 ms | 1142 ms | - |
+| 27 | EPODONIOS | vless | `cf.877774.xyz:443` | 83 ms | 922 ms | - |
+| 28 | ⚡ b2n.ir/v2ray-configs / 350 | vless | `104.20.6.134:443` | 83 ms | 806 ms | - |
+| 29 | EPODONIOS | vless | `172.64.150.28:2082` | 84 ms | 743 ms | - |
+| 30 | US 🇺🇸 / @Raydikalx / 94BA12 | vmess | `84.17.41.2:18000` | 84 ms | 1110 ms | - |
+| 31 | EPODONIOS | vless | `104.21.91.244:443` | 88 ms | 757 ms | - |
+| 32 | EPODONIOS | vless | `172.67.155.65:2053` | 89 ms | 867 ms | - |
+| 33 | EPODONIOS | vless | `188.114.98.0:443` | 90 ms | 1828 ms | - |
+| 34 | EPODONIOS | vless | `188.114.98.0:443` | 91 ms | 740 ms | - |
+| 35 | EPODONIOS | vless | `172.67.155.65:2053` | 92 ms | 752 ms | - |
+| 36 | US 🇺🇸 / @Raydikalx / CE2CEA | vmess | `rib9jxayoqjgn2kw.v.3dns.vip:443` | 92 ms | 698 ms | - |
+| 37 | EPODONIOS | vless | `188.114.98.0:443` | 93 ms | 772 ms | - |
+| 38 | EPODONIOS | vless | `15.204.97.216:23576` | 95 ms | 不可达 | - |
+| 39 | EPODONIOS | vless | `15.204.97.195:23576` | 96 ms | 不可达 | - |
+| 40 | EPODONIOS | vless | `15.204.97.209:23576` | 96 ms | 不可达 | - |
+| 41 | EPODONIOS | vless | `15.204.97.219:23576` | 98 ms | 不可达 | - |
+| 42 | US 🇺🇸 / @Raydikalx / 452ED5 | vmess | `129.146.77.248:39495` | 98 ms | 1142 ms | - |
+| 43 | EPODONIOS | vless | `15.204.97.206:23576` | 99 ms | 不可达 | - |
+| 44 | EPODONIOS | vless | `15.204.97.216:23576` | 99 ms | 不可达 | - |
+| 45 | EPODONIOS | vless | `172.64.155.209:443` | 104 ms | 756 ms | - |
+| 46 | EPODONIOS | vless | `cf.090227.xyz:443` | 104 ms | 768 ms | - |
+| 47 | EPODONIOS | vless | `188.114.98.0:443` | 107 ms | 838 ms | - |
+| 48 | EPODONIOS | vless | `172.66.47.10:443` | 108 ms | 731 ms | - |
+| 49 | EPODONIOS | vless | `188.114.98.0:443` | 109 ms | 741 ms | - |
+| 50 | EPODONIOS | vless | `188.114.97.6:443` | 109 ms | 758 ms | - |
 
-> 仅展示前 50 个，共 714 个；完整列表见 `sub/nodes.txt`。
+> 仅展示前 50 个，共 731 个；完整列表见 `sub/nodes.txt`。

@@ -1,6 +1,6 @@
 # 可用节点（自动生成）
 
-> 每次筛选后自动重写，最后更新：`2026-11-07 17:44:55+0800`
+> 每次筛选后自动重写，最后更新：`2026-11-08 01:34:49+0800`
 
 ## 订阅地址
 
@@ -18,23 +18,23 @@ https://cdn.jsdelivr.net/gh/zppHappy/get-to-internet-by-own@main/sub/base64.txt
 
 | 项目 | 数量 |
 |---|---|
-| 抓取链接 | 13112 |
-| 去重后节点 | 8268 |
-| TCP 预筛剔除 | 3899 |
-| 真连接测试 | 8268 |
-| 测试通过 | 863 |
-| **最终保留** | **863** |
-| 耗时 | 313.5 秒 |
+| 抓取链接 | 13012 |
+| 去重后节点 | 8210 |
+| TCP 预筛剔除 | 3905 |
+| 真连接测试 | 8210 |
+| 测试通过 | 811 |
+| **最终保留** | **811** |
+| 耗时 | 336.1 秒 |
 
-> 解析阶段跳过：重复 4817、协议未启用 0、无法解析 27
+> 解析阶段跳过：重复 4775、协议未启用 0、无法解析 27
 
 ## 协议分布
 
-vless 392 · ss 202 · vmess 147 · trojan 122
+vless 354 · ss 204 · vmess 145 · trojan 108
 
 ## 国内方向探测（节点 → 中国，非中国 → 节点）
 
-保留的 863 个节点中，有 **717** 个能经代理访问到国内目标站，**146** 个访问不到。
+保留的 811 个节点中，有 **643** 个能经代理访问到国内目标站，**168** 个访问不到。
 
 > 两个必须说清楚的点：
 > 1. 这是「节点 → 中国」方向，**不能证明「中国能连到这个节点」**——后者才是你实际使用的方向，必须在国内机器上测才算数。
@@ -44,55 +44,55 @@ vless 392 · ss 202 · vmess 147 · trojan 122
 
 | # | 名称 | 协议 | 服务器 | 延迟 | 到国内目标 | 速度 |
 |---|------|------|--------|------|------------|------|
-| 1 | [131512] | ss | `37.19.198.243:443` | 47 ms | 882 ms | - |
-| 2 | 🇺🇸US-37.19.198.160-0146 | ss | `37.19.198.160:443` | 47 ms | 935 ms | - |
-| 3 | 🇺🇸 Join+Telegram:@Farah_VPN 🇺🇸 | ss | `37.19.198.236:443` | 48 ms | 885 ms | - |
-| 4 | 🇺🇸US-138.197.89.234-0273 | ss | `138.197.89.234:28960` | 48 ms | 不可达 | - |
-| 5 | US 🇺🇸 / @Raydikalx / C88267 | vmess | `67.220.85.46:18000` | 49 ms | 1509 ms | - |
-| 6 | Tel@MARAMBASHI 🇮🇹 | vless | `47.253.226.114:443` | 50 ms | 939 ms | - |
-| 7 | @FXxNET⚡️ | vless | `47.253.226.114:443` | 51 ms | 936 ms | - |
-| 8 | 11598@proxy_online_net | vmess | `67.220.85.46:18000` | 52 ms | 2517 ms | - |
-| 9 | @FarazV2ray | ss | `37.19.198.244:443` | 52 ms | 960 ms | - |
-| 10 | @pass_net🎃🕸️🎃 | ss | `193.151.163.18:19999` | 54 ms | 873 ms | - |
-| 11 | @i10VPN⁶ | vless | `47.253.226.114:443` | 56 ms | 938 ms | - |
-| 12 | 67.220.85.46:18000 | vmess | `67.220.85.46:18000` | 60 ms | 2420 ms | - |
-| 13 | @FarazV2ray | ss | `198.98.53.130:443` | 61 ms | 1031 ms | - |
-| 14 | 🇺🇸US-38.91.100.39-2474 | ss | `38.91.100.39:19999` | 62 ms | 1120 ms | - |
-| 15 | @v2ray_configs_pools 🍁🍂 | ss | `45.86.51.18:19999` | 66 ms | 898 ms | - |
-| 16 | YFZ 142 @Outline_Vpn | ss | `185.230.230.18:19999` | 66 ms | 870 ms | - |
-| 17 | @FXxNET⚡️ | vless | `185.95.231.156:443` | 67 ms | 1266 ms | - |
-| 18 | 🇺🇸US-172.111.38.72-0218 | ss | `172.111.38.72:19999` | 67 ms | 991 ms | - |
-| 19 | Tel@MARAMBASHI 🇬🇧 | vless | `185.95.231.156:443` | 70 ms | 1197 ms | - |
-| 20 | 11914@proxy_online_net | vmess | `67.220.95.3:18000` | 73 ms | 968 ms | - |
-| 21 | 🇺🇸 Join+Telegram:@Farah_VPN 🇺🇸 | vless | `195.123.235.183:443` | 81 ms | 1025 ms | - |
-| 22 | @Nexus_Panell چنل تلگرام | ss | `67.220.73.178:19999` | 83 ms | 1254 ms | - |
-| 23 | Channel id: @ConfigV2RayNG 🇺🇸 | vmess | `67.220.95.3:18000` | 84 ms | 935 ms | - |
-| 24 | @i10VPN¹⁰ | vless | `169.40.42.74:443` | 84 ms | 1158 ms | - |
-| 25 | 🇺🇸US-38.128.66.32-2475 | ss | `38.128.66.32:19999` | 85 ms | 不可达 | - |
-| 26 | US 🇺🇸 / @Raydikalx / D57224 | vmess | `172.111.38.246:1270` | 86 ms | 1193 ms | - |
-| 27 | US 🇺🇸 / @Raydikalx / 2314F7 | vmess | `67.220.95.49:1270` | 86 ms | 1216 ms | - |
-| 28 | Telegram 👉🏼 @planB_net  • 08 | vless | `169.40.42.74:443` | 87 ms | 1151 ms | - |
-| 29 | @Nexus_Panell چنل تلگرام | vmess | `172.86.108.79:42906` | 90 ms | 1386 ms | - |
-| 30 | Tel@MARAMBASHI 🇸🇪 | vless | `169.40.42.163:443` | 92 ms | 945 ms | - |
-| 31 | 🇺🇸US-149.40.57.138-2465 | ss | `149.40.57.138:19999` | 92 ms | 1112 ms | - |
-| 32 | US 🇺🇸 / @Raydikalx / 943FAE | vmess | `38.107.226.5:1270` | 95 ms | 1213 ms | - |
-| 33 | 🇺🇸 Join+Telegram:@Farah_VPN 🇺🇸 | ss | `193.151.160.18:19999` | 97 ms | 987 ms | - |
-| 34 | kurdconfig | ss | `193.151.160.9:19999` | 97 ms | 1495 ms | - |
-| 35 | Channel : @Daily_Configs  | vmess | `38.91.107.49:18000` | 100 ms | 1174 ms | - |
-| 36 | @Nexus_Panell چنل تلگرام | ss | `149.40.57.134:19999` | 101 ms | 877 ms | - |
-| 37 | @Nexus_Panell چنل تلگرام | ss | `149.40.57.133:19999` | 101 ms | 898 ms | - |
-| 38 | [132150] | trojan | `69.164.240.85:50875` | 101 ms | 1648 ms | - |
-| 39 | US 🇺🇸 / @Raydikalx / F52172 | vmess | `38.91.107.49:18000` | 101 ms | 1548 ms | - |
-| 40 | Telegram 👉🏼 @planB_net  • 01 | vless | `66.70.179.198:2053` | 102 ms | 1159 ms | - |
-| 41 | @MigMigVPNSHOP | ss | `185.215.132.9:19999` | 102 ms | 962 ms | - |
-| 42 | Channel id: @ConfigV2RayNG 🇨🇦 | ss | `51.222.155.32:5003` | 102 ms | 1107 ms | - |
-| 43 | @i10VPN¹⁰ | trojan | `66.163.122.7:443` | 102 ms | 910 ms | - |
-| 44 | 🇺🇸US-167.88.62.203-2462 | ss | `167.88.62.203:19999` | 103 ms | 1104 ms | - |
-| 45 | US 🇺🇸 / @Raydikalx / BEE56B | vmess | `38.91.107.49:18000` | 103 ms | 1231 ms | - |
-| 46 | 🇺🇲 𝐔𝐒𝐀¹ @Fear_Config | vmess | `38.91.107.49:18000` | 104 ms | 1094 ms | - |
-| 47 | @FXxNET⚡️ | ss | `38.121.43.231:19999` | 104 ms | 961 ms | - |
-| 48 | US 🇺🇸 / @Raydikalx / 836C7D | vmess | `38.110.1.246:18000` | 104 ms | 1237 ms | - |
-| 49 | @FXxNET⚡️ | ss | `162.251.62.31:19999` | 105 ms | 1361 ms | - |
-| 50 | @FXxNET⚡️ | ss | `38.121.43.225:19999` | 105 ms | 1045 ms | - |
+| 1 | US 🇺🇸 / @Raydikalx / 964397 | vmess | `84.17.41.2:18000` | 29 ms | 不可达 | - |
+| 2 | 84.17.41.2:18000 | vmess | `84.17.41.2:18000` | 33 ms | 不可达 | - |
+| 3 | 🇺🇸03 / ⚡Telegram = t.me/ex_proxies | vmess | `84.17.41.2:18000` | 41 ms | 不可达 | - |
+| 4 | @V2rayNGVPN > کانفیگ رایگان | trojan | `216.106.186.46:443` | 49 ms | 673 ms | - |
+| 5 | 🇺🇸 Join+Telegram:@Farah_VPN 🇺🇸 | trojan | `blog.findlocaljobnetworkandbuildcommunityconnections.com:443` | 49 ms | 752 ms | - |
+| 6 | Channel id: @ConfigV2RayNG 🇺🇸 | trojan | `216.106.186.82:443` | 52 ms | 743 ms | - |
+| 7 | 🇨🇦209285 / ⚡️Telegram = t.me/SOSkeyNET | ss | `149.22.95.183:443` | 53 ms | 663 ms | - |
+| 8 | United States | trojan | `216.106.186.32:443` | 55 ms | 746 ms | - |
+| 9 | @i10VPN⁷ | vless | `15.204.97.206:23576` | 59 ms | 1083 ms | - |
+| 10 | @Napsternetvirani | vless | `15.204.97.197:23576` | 59 ms | 不可达 | - |
+| 11 | @ConfigV2RayNG | trojan | `216.106.186.66:443` | 59 ms | 656 ms | - |
+| 12 | @hopev2ray🤎 | vless | `15.204.97.206:23576` | 60 ms | 750 ms | - |
+| 13 | Tel@MARAMBASHI 🇸🇪 | vless | `15.204.97.197:23576` | 60 ms | 不可达 | - |
+| 14 | @pass_net🎃🕸️🎃 | vless | `15.204.97.216:23576` | 60 ms | 不可达 | - |
+| 15 | @VPsave | vless | `15.204.97.198:23576` | 61 ms | 1510 ms | - |
+| 16 | @Net2ray 🔥 | vless | `15.204.97.197:23576` | 61 ms | 不可达 | - |
+| 17 | Channel : @Daily_Configs | vless | `15.204.97.219:23576` | 61 ms | 4015 ms | - |
+| 18 | Telegram 👉🏼 @planB_net  • 02 | vless | `15.204.97.216:23576` | 61 ms | 不可达 | - |
+| 19 | @ConfigV2RayNG | vless | `15.204.97.198:23576` | 62 ms | 2485 ms | - |
+| 20 | Tel@MARAMBASHI 🇫🇷 | vless | `15.204.97.219:23576` | 62 ms | 1392 ms | - |
+| 21 | @V2ray_confiig | vless | `15.204.97.198:23576` | 62 ms | 不可达 | - |
+| 22 | Telegram 👉🏼 @planB_net  • 09 | vless | `ww13.levikogjgfdd.ir:23576` | 62 ms | 1424 ms | - |
+| 23 | @VPsave | vless | `15.204.97.206:23576` | 65 ms | 2851 ms | - |
+| 24 | Tel@MARAMBASHI 🇫🇷 | vless | `15.204.97.214:23576` | 72 ms | 不可达 | - |
+| 25 | 🇺🇸 United States / تلگرام: @IRJetConfig  | vless | `15.204.97.214:23576` | 72 ms | 不可达 | - |
+| 26 | @i10VPN³ | vless | `ww13.levikogjgfdd.ir:23576` | 80 ms | 不可达 | - |
+| 27 | @pass_net🎃🕸️🎃 | vless | `ww13.levikogjgfdd.ir:23576` | 82 ms | 不可达 | - |
+| 28 | 🇺🇸 Join+Telegram:@Farah_VPN 🇺🇸 | trojan | `resources.findlocaljobnetworkandbuildcommunityconnections.com:443` | 84 ms | 656 ms | - |
+| 29 | 🇺🇸US-137.184.89.151-0167 | ss | `137.184.89.151:19999` | 91 ms | 687 ms | - |
+| 30 | United States | trojan | `www.findlocaljobnetworkandbuildcommunityconnections.com:443` | 91 ms | 700 ms | - |
+| 31 | @ConfigV2RayNG | ss | `169.197.142.68:19999` | 95 ms | 1290 ms | - |
+| 32 | Channel id: @ConfigV2RayNG 🇺🇸 | trojan | `blog.findlocaljobnetworkandbuildcommunityconnections.com:443` | 105 ms | 670 ms | - |
+| 33 | 11602@proxy_online_net | vmess | `169.197.142.22:18000` | 106 ms | 1155 ms | - |
+| 34 | 🇺🇸US-23.150.152.38-0155 | ss | `23.150.152.38:19999` | 107 ms | 1021 ms | - |
+| 35 | 🔵@chillguy_vpn | vmess | `23.147.56.181:52843` | 112 ms | 1338 ms | - |
+| 36 | @ConfigV2RayNG | ss | `38.145.220.193:8443` | 123 ms | 849 ms | - |
+| 37 | 🇺🇸 Join+Telegram:@Farah_VPN 🇺🇸 | vless | `198.2.251.107:45197` | 127 ms | 945 ms | - |
+| 38 | @pass_net🎃🕸️🎃 | ss | `95.215.201.18:19999` | 127 ms | 858 ms | - |
+| 39 | @ConfigV2RayNG | trojan | `167.88.61.52:443` | 127 ms | 771 ms | - |
+| 40 | US 🇺🇸 / @Raydikalx / A46964 | vmess | `169.197.142.68:1270` | 129 ms | 769 ms | - |
+| 41 | Tel@MARAMBASHI 🇫🇷 | trojan | `167.88.61.52:443` | 130 ms | 1675 ms | - |
+| 42 | ✰𝗝𝗼𝗶𝗻 ➠ @v2raymelliii✰ | trojan | `167.88.61.20:443` | 132 ms | 747 ms | - |
+| 43 | 🇺🇸US-173.244.56.9-0146 | ss | `173.244.56.9:443` | 135 ms | 1896 ms | - |
+| 44 | 🔰 @ConfigV2RayNG (تلگرام) - 172 | trojan | `167.88.61.193:443` | 138 ms | 2082 ms | - |
+| 45 | Telegram 👉🏼 @planB_net  • 09 | trojan | `167.88.61.193:443` | 139 ms | 729 ms | - |
+| 46 | 🇺🇸 United States / تلگرام: @IRJetConfig  | vless | `107.173.237.146:8443` | 141 ms | 816 ms | - |
+| 47 | United States | trojan | `167.88.61.198:443` | 141 ms | 1300 ms | - |
+| 48 | @ConfigV2RayNG | trojan | `167.88.61.20:443` | 141 ms | 1352 ms | - |
+| 49 | @FXxNET⚡️ | ss | `167.88.62.203:19999` | 142 ms | 1315 ms | - |
+| 50 | Tel@MARAMBASHI 🇫🇷 | vless | `148.135.86.162:10000` | 144 ms | 831 ms | - |
 
-> 仅展示前 50 个，共 863 个；完整列表见 `sub/nodes.txt`。
+> 仅展示前 50 个，共 811 个；完整列表见 `sub/nodes.txt`。

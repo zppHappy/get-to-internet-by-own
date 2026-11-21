@@ -1,6 +1,6 @@
 # 可用节点（自动生成）
 
-> 每次筛选后自动重写，最后更新：`2026-11-20 19:03:20+0800`
+> 每次筛选后自动重写，最后更新：`2026-11-21 10:04:25+0800`
 
 ## 订阅地址
 
@@ -18,23 +18,23 @@ https://cdn.jsdelivr.net/gh/zppHappy/get-to-internet-by-own@main/sub/base64.txt
 
 | 项目 | 数量 |
 |---|---|
-| 抓取链接 | 12950 |
-| 去重后节点 | 8364 |
-| TCP 预筛剔除 | 4042 |
-| 真连接测试 | 8364 |
-| 测试通过 | 807 |
-| **最终保留** | **807** |
-| 耗时 | 333.5 秒 |
+| 抓取链接 | 13100 |
+| 去重后节点 | 8384 |
+| TCP 预筛剔除 | 3972 |
+| 真连接测试 | 8384 |
+| 测试通过 | 1041 |
+| **最终保留** | **1041** |
+| 耗时 | 302.8 秒 |
 
-> 解析阶段跳过：重复 4563、协议未启用 0、无法解析 23
+> 解析阶段跳过：重复 4695、协议未启用 0、无法解析 21
 
 ## 协议分布
 
-vless 323 · ss 248 · vmess 150 · trojan 86
+vless 480 · ss 250 · vmess 181 · trojan 130
 
 ## 国内方向探测（节点 → 中国，非中国 → 节点）
 
-保留的 807 个节点中，有 **595** 个能经代理访问到国内目标站，**212** 个访问不到。
+保留的 1041 个节点中，有 **882** 个能经代理访问到国内目标站，**159** 个访问不到。
 
 > 两个必须说清楚的点：
 > 1. 这是「节点 → 中国」方向，**不能证明「中国能连到这个节点」**——后者才是你实际使用的方向，必须在国内机器上测才算数。
@@ -44,56 +44,55 @@ vless 323 · ss 248 · vmess 150 · trojan 86
 
 | # | 名称 | 协议 | 服务器 | 延迟 | 到国内目标 | 速度 |
 |---|------|------|--------|------|------------|------|
-| 1 | 🇪🇺  @EXPRESSVPN_420 | ss | `95.215.201.18:19999` | 20 ms | 746 ms | - |
-| 2 | 🇺🇸US-23.150.152.38-0126 | ss | `23.150.152.38:19999` | 46 ms | 712 ms | - |
-| 3 | 🔹98@oneclickvpnkeys | vless | `45.32.70.42:443` | 61 ms | 680 ms | - |
-| 4 | 🔹95@oneclickvpnkeys | vless | `172.235.63.167:443` | 61 ms | 727 ms | - |
-| 5 | 🔹96@oneclickvpnkeys | vless | `172.233.129.187:443` | 64 ms | 750 ms | - |
-| 6 | 🧬100@oneclickvpnkeys | vless | `45.63.53.81:443` | 64 ms | 688 ms | - |
-| 7 | 🔵72@oneclickvpnkeys | vless | `172.235.63.167:443` | 64 ms | 749 ms | - |
-| 8 | 🔵74@oneclickvpnkeys | vless | `172.236.233.130:443` | 68 ms | 712 ms | - |
-| 9 | 🧬96@oneclickvpnkeys | vless | `45.76.172.197:443` | 68 ms | 840 ms | - |
-| 10 | 🔹97@oneclickvpnkeys | vless | `172.235.49.52:443` | 68 ms | 904 ms | - |
-| 11 | US 🇺🇸 / @Raydikalx / 481678 | vmess | `23.150.152.65:1270` | 68 ms | 1005 ms | - |
-| 12 | تو کانال نتورلد نباشید قطع میشن@networld | ss | `137.184.89.151:19999` | 71 ms | 672 ms | - |
-| 13 | 🔵70@oneclickvpnkeys | vless | `172.236.227.60:443` | 74 ms | 1098 ms | - |
-| 14 | ⚜️𝗝𝗼𝗶𝗻 ➠ @tik7net_vpn | ss | `169.197.142.68:19999` | 75 ms | 851 ms | - |
-| 15 | 🇺🇸 / تلگرام: @IRJetConfig #RK | ss | `173.244.56.9:443` | 77 ms | 800 ms | - |
-| 16 | 🔵75@oneclickvpnkeys | vless | `172.233.129.65:443` | 78 ms | 1151 ms | - |
-| 17 | Tel@MARAMBASHI 🇫🇷 | ss | `173.244.56.6:443` | 78 ms | 770 ms | - |
-| 18 | لینک کانال نتورلد
- @networld_vpn | vmess | `169.197.142.22:18000` | 80 ms | 703 ms | - |
-| 19 | v2ray_dalghak | ss | `156.146.38.167:443` | 86 ms | 1117 ms | - |
-| 20 | @Tarkahodeh 🏴󠁧󠁢󠁷󠁬󠁳󠁿 | ss | `156.146.38.169:443` | 89 ms | 878 ms | - |
-| 21 | 156.146.38.168:443 | ss | `156.146.38.168:443` | 89 ms | 900 ms | - |
-| 22 | @networld_vpn | vmess | `104.18.42.163:443` | 91 ms | 不可达 | - |
-| 23 | Channel id: ConfigV2RayNG 🇺🇸 | vmess | `172.67.190.164:443` | 92 ms | 不可达 | - |
-| 24 | ConfigV2RayNG 🇺🇸 | vmess | `104.18.42.163:443` | 93 ms | 不可达 | - |
-| 25 | 156.146.38.170:443 | ss | `156.146.38.170:443` | 95 ms | 1004 ms | - |
-| 26 | CA 🇨🇦 / @Raydikalx / 275119 | vmess | `guanwang.awsno.com:443` | 95 ms | 不可达 | - |
-| 27 | Channel id: ConfigV2RayNG 🇺🇸 | vmess | `188.114.99.137:443` | 97 ms | 不可达 | - |
-| 28 | Channel id: @ConfigV2RayNG 🇺🇸 | vmess | `172.64.145.93:443` | 100 ms | 不可达 | - |
-| 29 | Channel id: @ConfigV2RayNG 🇺🇸 | vmess | `172.67.190.164:443` | 102 ms | 不可达 | - |
-| 30 | 🇺🇸 / تلگرام: @IRJetConfig #RK | vmess | `169.197.142.68:1270` | 105 ms | 717 ms | - |
-| 31 | Channel id: ConfigV2RayNG  | vmess | `guanwang.awsno.com:443` | 106 ms | 不可达 | - |
-| 32 | Channel : @Daily_Configs | vmess | `169.197.142.22:18000` | 107 ms | 699 ms | - |
-| 33 | 🔵63@oneclickvpnkeys | vless | `143.246.60.254:443` | 110 ms | 954 ms | - |
-| 34 | @VPsave | trojan | `167.88.61.52:443` | 118 ms | 823 ms | - |
-| 35 | @pass_net 2 | trojan | `167.88.61.20:443` | 124 ms | 764 ms | - |
-| 36 | @cnetvpn 🇹🇷 | trojan | `167.88.61.20:443` | 125 ms | 726 ms | - |
-| 37 | 🇺🇸 / تلگرام: @IRJetConfig #RK | vmess | `84.17.41.2:18000` | 129 ms | 不可达 | - |
-| 38 | @VPsave | ss | `167.88.62.56:19999` | 131 ms | 1296 ms | - |
-| 39 | 🇺🇸 / تلگرام: @IRJetConfig #RK | ss | `167.17.67.171:19999` | 132 ms | 1294 ms | - |
-| 40 | 🇭🇰 Join+Telegram:@Farah_VPN 🇭🇰 | vmess | `206.237.11.17:50376` | 133 ms | 1955 ms | - |
-| 41 | تو کانال نتورلد نباشید قطع میشن@networld | ss | `167.88.62.203:19999` | 135 ms | 1268 ms | - |
-| 42 | تو کانال نتورلد نباشید قطع میشن@networld | ss | `149.40.57.138:19999` | 140 ms | 1264 ms | - |
-| 43 | 🇺🇸03 / ⚡Telegram = t.me/ex_proxies | vmess | `84.17.41.2:18000` | 141 ms | 不可达 | - |
-| 44 | @Nexus_Panell چنل تلگرام | ss | `149.40.57.135:19999` | 141 ms | 1270 ms | - |
-| 45 | @ConfigV2RayNG | ss | `149.40.57.133:19999` | 141 ms | 2336 ms | - |
-| 46 | CA 🇨🇦 / @Raydikalx / 17785B | vmess | `guanwang.awsno.com:443` | 142 ms | 不可达 | - |
-| 47 | US 🇺🇸 / @Raydikalx / 964397 | vmess | `84.17.41.2:18000` | 142 ms | 4587 ms | - |
-| 48 | @hopev2ray🤎 | vless | `15.204.97.206:23576` | 146 ms | 1504 ms | - |
-| 49 | @hopev2ray🩶 | vless | `15.204.97.206:23576` | 146 ms | 不可达 | - |
-| 50 | 🇺🇸 / تلگرام: @IRJetConfig #RK | vmess | `84.17.41.2:18000` | 148 ms | 不可达 | - |
+| 1 | 🇺🇸US-🚀@VPNine1 | ss | `161.153.38.61:50356` | 24 ms | 1077 ms | - |
+| 2 | US 🇺🇸 / @Raydikalx / 452ED5 | vmess | `129.146.77.248:39495` | 25 ms | 947 ms | - |
+| 3 | 🔵73@oneclickvpnkeys | trojan | `66.163.112.121:443` | 27 ms | 715 ms | - |
+| 4 | @AZARBAYJAB1 | trojan | `66.163.112.242:443` | 34 ms | 719 ms | - |
+| 5 | @ConfigV2RayNG | trojan | `66.163.112.142:443` | 35 ms | 733 ms | - |
+| 6 | 🇪🇺  @EXPRESSVPN_420 | ss | `95.215.201.18:19999` | 43 ms | 712 ms | - |
+| 7 | 🇺🇸US-23.150.152.38-0128 | ss | `23.150.152.38:19999` | 47 ms | 956 ms | - |
+| 8 | 🔵71@oneclickvpnkeys | trojan | `66.163.112.76:443` | 51 ms | 709 ms | - |
+| 9 | 🔹94@oneclickvpnkeys | trojan | `66.163.112.242:443` | 53 ms | 742 ms | - |
+| 10 | 🇭🇰 Join+Telegram:@Farah_VPN 🇭🇰 | vmess | `206.237.11.17:50376` | 54 ms | 1022 ms | - |
+| 11 | @vpnsal | trojan | `66.163.112.13:443` | 57 ms | 734 ms | - |
+| 12 | @pass_net 3 | trojan | `66.163.112.76:443` | 57 ms | 727 ms | - |
+| 13 | @pass_net 4 | trojan | `66.163.112.147:443` | 58 ms | 723 ms | - |
+| 14 | ⭕71@oneclickvpnkeys | trojan | `206.119.73.250:10443` | 58 ms | 677 ms | - |
+| 15 | 🔹97@oneclickvpnkeys | vless | `172.235.49.52:443` | 59 ms | 748 ms | - |
+| 16 | 🔵74@oneclickvpnkeys | vless | `172.236.233.130:443` | 60 ms | 871 ms | - |
+| 17 | @ConfigV2RayNG | trojan | `66.163.112.142:443` | 60 ms | 706 ms | - |
+| 18 | @AZARBAYJAB1 | trojan | `66.163.112.31:443` | 61 ms | 741 ms | - |
+| 19 | 🔵70@oneclickvpnkeys | vless | `172.236.227.60:443` | 62 ms | 737 ms | - |
+| 20 | @fastkanfig / سرور 4 | trojan | `66.163.112.121:443` | 62 ms | 716 ms | - |
+| 21 | 🔵72@oneclickvpnkeys | vless | `172.235.63.167:443` | 63 ms | 1133 ms | - |
+| 22 | 🔵75@oneclickvpnkeys | vless | `172.233.129.65:443` | 64 ms | 731 ms | - |
+| 23 | 🔹98@oneclickvpnkeys | vless | `45.32.70.42:443` | 67 ms | 832 ms | - |
+| 24 | 🔹95@oneclickvpnkeys | vless | `172.235.63.167:443` | 70 ms | 1045 ms | - |
+| 25 | 🇺🇸US-137.184.89.151-0112 | ss | `137.184.89.151:19999` | 72 ms | 686 ms | - |
+| 26 | Tel@MARAMBASHI 🇫🇷 | ss | `173.244.56.6:443` | 77 ms | 767 ms | - |
+| 27 | ⚜️𝗝𝗼𝗶𝗻 ➠ @tik7net_vpn | ss | `169.197.142.68:19999` | 80 ms | 716 ms | - |
+| 28 | Channel id: ConfigV2RayNG 🇺🇸 | vmess | `169.197.142.22:18000` | 81 ms | 750 ms | - |
+| 29 | @V2ray_confiig | vless | `104.21.227.134:80` | 81 ms | 747 ms | - |
+| 30 | Channel id: @ConfigV2RayNG 🇺🇸 | vmess | `169.197.142.22:18000` | 84 ms | 730 ms | - |
+| 31 | 🔹96@oneclickvpnkeys | vless | `172.233.129.187:443` | 84 ms | 737 ms | - |
+| 32 | @Tarkahodeh 🏴󠁧󠁢󠁷󠁬󠁳󠁿 | ss | `156.146.38.169:443` | 86 ms | 890 ms | - |
+| 33 | 156.146.38.168:443 | ss | `156.146.38.168:443` | 87 ms | 1736 ms | - |
+| 34 | 156.146.38.170:443 | ss | `156.146.38.170:443` | 87 ms | 1067 ms | - |
+| 35 | 🇺🇸US-173.244.56.9-0123 | ss | `173.244.56.9:443` | 87 ms | 784 ms | - |
+| 36 | @VPNConnectd | vless | `104.21.227.134:80` | 90 ms | 766 ms | - |
+| 37 | @VPsave | vless | `104.21.70.21:443` | 90 ms | 796 ms | - |
+| 38 | Channel id: @ConfigV2RayNG 🇺🇸 | vmess | `172.67.190.164:443` | 91 ms | 不可达 | - |
+| 39 | Channel id: ConfigV2RayNG 🇺🇸 | vmess | `172.67.190.164:443` | 96 ms | 不可达 | - |
+| 40 | 🇨🇦220776 / ⚡️Telegram = t.me/SOSkeyNET | vless | `104.17.136.102:2087` | 96 ms | 742 ms | - |
+| 41 | Channel id: ConfigV2RayNG  | vmess | `guanwang.awsno.com:443` | 98 ms | 不可达 | - |
+| 42 | 🇨🇦220779 / ⚡️Telegram = t.me/SOSkeyNET | vless | `172.64.148.193:443` | 99 ms | 808 ms | - |
+| 43 | ConfigV2RayNG 🇺🇸 | vmess | `104.18.42.163:443` | 100 ms | 不可达 | - |
+| 44 | 🚀@VPNine1 | vless | `8.6.112.0:443` | 101 ms | 938 ms | - |
+| 45 | 🚀@VPNine1 | vless | `188.114.96.9:443` | 102 ms | 801 ms | - |
+| 46 | 🔵62@oneclickvpnkeys | trojan | `167.88.61.175:443` | 103 ms | 735 ms | - |
+| 47 | CA 🇨🇦 / @Raydikalx / E20903 | vmess | `104.18.42.163:443` | 103 ms | 不可达 | - |
+| 48 | ⚡ b2n.ir/v2ray-configs / 212 | vless | `172.64.88.98:443` | 103 ms | 742 ms | - |
+| 49 | 🇨🇦220783 / ⚡️Telegram = t.me/SOSkeyNET | vless | `172.66.47.45:2083` | 104 ms | 739 ms | - |
+| 50 | @pass_net 4 | trojan | `66.163.112.171:443` | 104 ms | 707 ms | - |
 
-> 仅展示前 50 个，共 807 个；完整列表见 `sub/nodes.txt`。
+> 仅展示前 50 个，共 1041 个；完整列表见 `sub/nodes.txt`。
